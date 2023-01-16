@@ -1,54 +1,30 @@
-var MinStack = function() {
-  stack  = []
-  min = []
-};
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
 
-/** 
-* @param {number} val
-* @return {void}
-*/
-MinStack.prototype.push = function(val) {
-  stack.push(val)    
-  if( min.length == 0){
-      min.push(val)
-  }else{
-      if( min[min.length-1] >= val){
-          min.push(val)
+    const Stack =[];
+    var arr = s.split("");
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] == "{") {
+        Stack.push("}");
+      } else if (arr[i] == "(") {
+        Stack.push(")");
+      } else if (arr[i] == "[") {
+        Stack.push("]");
       }
-  }
-};
-
-/**
-* @return {void}
-*/
-MinStack.prototype.pop = function() {
-  lastVal = stack.pop();
-  if (min[min.length-1] == lastVal){
-      min.pop()
-  }
-  return lastVal;
-};
-
-/**
-* @return {number}
-*/
-MinStack.prototype.top = function() {
-  topVal=stack[stack.length -1]
-  return topVal;
-};
-
-/**
-* @return {number}
-*/
-MinStack.prototype.getMin = function() {
-  return min[min.length - 1]
-};
-
-/** 
-* Your MinStack object will be instantiated and called as such:
-* var obj = new MinStack()
-* obj.push(val)
-* obj.pop()
-* var param_3 = obj.top()
-* var param_4 = obj.getMin()
-*/
+      else if (Stack.length==0 || Stack.pop()!= arr[i]){
+          return false;
+      };
+    }
+    for (let j = arr.length-1; j>0 ;j--) {
+      if (arr[j] == Stack[Stack.length-1]) {
+        Stack.pop();
+      } 
+      
+    }
+    if (Stack.length==0 ) return true;
+    else return false;
+    
+    };
